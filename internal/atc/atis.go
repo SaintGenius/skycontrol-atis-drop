@@ -106,7 +106,7 @@ func (a *ATIS) once() time.Duration {
 		}
 		a.lastKey = key
 		info := natoLetter(a.letter)
-		text := fmt.Sprintf("%s. Information %s. %s Advise on initial contact you have information %s.",
+		text := fmt.Sprintf("%s. Information %s. %s Advise on initial contact. You have information %s.",
 			af.Name, info, body, info)
 		a.freq = freq
 		a.name = af.Name + " Information"
@@ -174,11 +174,11 @@ func atisBody(af *airfield.Airfield, runway string, w weather.Sample) string {
 	}
 	if runway != "" {
 		b.WriteString("Landing and departing ")
-		b.WriteString(SpeakRunway(runway))
+		b.WriteString(strings.ReplaceAll(SpeakRunway(runway), "-", " "))
 		b.WriteString(". ")
 	}
 	if af.TACAN != "" {
-		b.WriteString("TACAN ")
+		b.WriteString("Tackann ")
 		b.WriteString(SpeakTACAN(af.TACAN))
 		b.WriteString(". ")
 	}

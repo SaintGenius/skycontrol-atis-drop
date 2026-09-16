@@ -834,19 +834,26 @@ func (t *Tower) handleRadioCheck(call radio.ReceivedCall) bool {
 
 func (t *Tower) handleATISRequest(call radio.ReceivedCall) bool {
 	t.mu.Lock()
-	defer t.mu.Unlock()
-
 	st, af, pilot := t.resolveCaller(call, true)
 	role := RoleGround
 	if st != nil && !st.OnGround {
 		role = RoleTower
 	}
 	cs := t.cfgCallsign(af, role)
+	raw := ""
+	if af != nil {
+		raw = primaryATIS(af)
+	}
+	name := ""
+	if af != nil {
+		name = af.Name
+	}
+	t.mu.Unlock()
+
 	if af == nil {
 		t.say(call.Frequency, cs, fmt.Sprintf("%s, %s, say again your request.", pilot, cs))
 		return true
 	}
-	raw := primaryATIS(af)
 	if raw == "" {
 		t.say(call.Frequency, cs, fmt.Sprintf("%s, %s, no ATIS this field, stay this frequency.", pilot, cs))
 		return true
@@ -854,7 +861,7 @@ func (t *Tower) handleATISRequest(call radio.ReceivedCall) bool {
 	msg := fmt.Sprintf("%s, %s, ATIS is %s. Tune COM2 and copy information.",
 		pilot, cs, SpeakFrequency(raw))
 	t.say(call.Frequency, cs, msg)
-	t.log.Info("issued ATIS freq", "pilot", pilot, "airfield", af.Name, "freq", raw)
+	t.log.Info("issued ATIS freq", "pilot", pilot, "airfield", name, "freq", raw)
 	return true
 }
 

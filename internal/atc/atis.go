@@ -106,7 +106,7 @@ func (a *ATIS) once() time.Duration {
 		}
 		a.lastKey = key
 		info := natoLetter(a.letter)
-		text := fmt.Sprintf("%s information %s. %s Advise on initial contact you have information %s.",
+		text := fmt.Sprintf("%s. Information %s. %s Advise on initial contact you have information %s.",
 			af.Name, info, body, info)
 		a.freq = freq
 		a.name = af.Name + " Information"
@@ -128,11 +128,11 @@ func (a *ATIS) once() time.Duration {
 		Priority:   -1,
 	})
 	n := len(strings.Fields(a.text))
-	wait := time.Duration(2500+n*350) * time.Millisecond
-	if wait < 8*time.Second {
-		wait = 8 * time.Second
-	}
-	return wait
+	// Queue is async — wait must cover the whole tape PLUS a gap, or the next
+	// loop starts the moment the last word ends.
+	audio := time.Duration(n)*420*time.Millisecond + 3*time.Second
+	pause := 10 * time.Second
+	return audio + pause
 }
 
 func primaryATIS(af *airfield.Airfield) string {

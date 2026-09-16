@@ -243,6 +243,9 @@ func PronounceATC(text string) string {
 	}
 	out = strings.ReplaceAll(out, "via alpha", "veeah taxi way alpha")
 	out = strings.ReplaceAll(out, "via Alpha", "veeah taxi way alpha")
+	out = regexp.MustCompile(`(?i)\bCOM\s*2\b`).ReplaceAllString(out, "comm two")
+	out = regexp.MustCompile(`(?i)\bCOM2\b`).ReplaceAllString(out, "comm two")
+	out = regexp.MustCompile(`(?i)\bC\.O\.M\.?\s*2\b`).ReplaceAllString(out, "comm two")
 	out = regexp.MustCompile(`(?i)\bzero\b`).ReplaceAllString(out, "zee-ro")
 	out = dashBetweenDigits.ReplaceAllString(out, "$1 $2")
 	out = strings.ReplaceAll(out, "x-ray", "xray")

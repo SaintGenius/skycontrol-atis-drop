@@ -858,7 +858,7 @@ func (t *Tower) handleATISRequest(call radio.ReceivedCall) bool {
 		t.say(call.Frequency, cs, fmt.Sprintf("%s, %s, no ATIS this field, stay this frequency.", pilot, cs))
 		return true
 	}
-	msg := fmt.Sprintf("%s, %s, ATIS is %s. Tune COM2 and copy information.",
+	msg := fmt.Sprintf("%s, %s, ATIS is %s. Tune to comm two and copy information.",
 		pilot, cs, SpeakFrequency(raw))
 	t.say(call.Frequency, cs, msg)
 	t.log.Info("issued ATIS freq", "pilot", pilot, "airfield", name, "freq", raw)

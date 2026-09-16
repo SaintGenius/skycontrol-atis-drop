@@ -132,7 +132,7 @@ SNAPSHOT FACTS — read these out when asked:
 - runways is the same active runway (opposite-end numbers like 09/27 are ONE strip, not two runways)
 - wind_from_deg / wind_kt: mission wind (FROM, knots). wind_source "dcs" or "config" means runway_spoken already used DCS's 6-knot rule (under 6 kt = field default; 6+ kt = into the wind). Do not pick a runway from heading when wind_source is dcs or config. "heading" means no DCS wind yet.
 - tower_freq, ground_freq, approach_freq, atis_freq, tacan, field_elevation_ft, icao
-- If they ask ATIS / ADIS / information / "eighty s" / ATIS frequency: intent "info". Read atis_freq ONLY (never tower_freq). Speak it as digits ("two six zero decimal niner"). Tell them to tune COM2 and copy information. Do not taxi them. If atis_freq is empty, say no ATIS this field, stay this frequency.
+- If they ask ATIS / ADIS / information / "eighty s" / ATIS frequency: intent "info". Read atis_freq ONLY (never tower_freq). Speak it as digits ("two six zero decimal niner"). Tell them to tune to comm two and copy information. Never say C.O.M. or COM2. Do not taxi them. If atis_freq is empty, say no ATIS this field, stay this frequency.
 - nearby_airfields: other fields on this map, sorted nearest-first, with distance_nm, bearing_deg, and tower_freq. Index 0 is usually YOUR field (tiny distance). Index 1 is the next nearest.
 - asked_field: if they named a field (Kutaisi, Batumi, Nellis…) this is that field's distance and freqs
 - traffic: other LIVE aircraft only (moving or airborne). Parked jets and wrecks are omitted.

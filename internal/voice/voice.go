@@ -193,6 +193,8 @@ func normalizeAviation(text string) string {
 		"rwy", "runway",
 		"ILS", "I L S",
 		"TACAN", "Tackann",
+		"COM2", "comm two",
+		"COM 2", "comm two",
 		"ATIS", "A T I S",
 		"GCI", "G C I",
 		"AWACS", "A wax",
